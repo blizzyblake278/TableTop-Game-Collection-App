@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">CollectorApp</string>
+    <string name="str_show_collection">Show Collection</string>
+    <string name="str_go_back">Go Back</string>
+    <string name="str_title">TITLE</string>
+    <string name="str_description">Description</string>
+    <string name="item">item</string>
+    <string name="str_add_to_list">Add To List</string>
+    <string name="str_card_game">Card Game</string>
+    <string name="str_dice_game">Dice Game</string>
+    <string name="str_RPG">RPG</string>
+    <string name="str_board_game">Board Game</string>
+    <string name="btn_go_back">Go Back</string>
+    <string name="toast_No_Title">Must Enter a Title</string>
+    <string name="image_view_content_desc">Game Type</string>
+</resources>
