@@ -1,5 +1,6 @@
 package com.example.collectorapp
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
@@ -18,10 +19,13 @@ open class MainActivity : AppCompatActivity() {
     private var titlesList = mutableListOf<String>()
     private var descriptionsList = mutableListOf<String>()
     private var imagesList = mutableListOf<Int>()
+    private lateinit var listView : ListView
 
     var listOfGames : ArrayList<String> = ArrayList()
     private var game : CollectionInfo = CollectionInfo("","","")
 
+
+    @SuppressLint("CommitPrefEdits")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -36,15 +40,14 @@ open class MainActivity : AppCompatActivity() {
         val diceGame : SwitchCompat = findViewById(R.id._swDiceGame)
         val RPG : SwitchCompat = findViewById(R.id._swRPG)
         val boardGame : SwitchCompat = findViewById(R.id._swBoardGame)
-        val adapter : ArrayAdapter<String> = ArrayAdapter(this, R.layout.collection_layout, listOfGames)
 
         //NEED TO FIX THIS ISSUE, SEE BELOW
-        setImages(cardGame.isChecked, diceGame.isChecked,RPG.isChecked, boardGame.isChecked)
+//        setImages(cardGame.isChecked, diceGame.isChecked,RPG.isChecked, boardGame.isChecked)
 
 
         btnShowCollection.setOnClickListener{
             val collectionIntent = Intent(this, CollectionListAct::class.java)
-            collectionIntent.putExtra("gameInfo", game.toString())
+            collectionIntent.putExtra("gameInfo", game.Title)
             startActivity(collectionIntent)
         }
 
@@ -61,7 +64,12 @@ open class MainActivity : AppCompatActivity() {
             else{
                 getCategory(cardGame.isChecked, diceGame.isChecked,RPG.isChecked, boardGame.isChecked)
                 listOfGames.add("TITLE : ${game.Title}\nDESCRIPTION: ${game.Desc}\nCATEGORY: ${game.Category}")
+
+
             }
+//            editor.putString(game.Title, game.toString())
+//            editor.apply()
+            editor.clear()
 
             for(i in listOfGames){
                 Log.d("itemArrayList", i)
@@ -112,6 +120,12 @@ open class MainActivity : AppCompatActivity() {
         }
         when(boardSwitch){
             true -> game.Category += "$strboardGame "
+        }
+    }
+
+    private fun resetArray(){
+        if(listOfGames.size > 0 ){
+            listOfGames.clear()
         }
     }
 
