@@ -13,4 +13,6 @@
     <string name="btn_go_back">Go Back</string>
     <string name="toast_No_Title">Must Enter a Title</string>
     <string name="image_view_content_desc">Game Type</string>
+    <string name="str_game_added_to_list">Game Added to List</string>
+
 </resources>

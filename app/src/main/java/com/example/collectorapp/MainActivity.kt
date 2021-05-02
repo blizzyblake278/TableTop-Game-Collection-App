@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.View.VISIBLE
 import android.widget.*
 import androidx.appcompat.widget.SwitchCompat
 import androidx.core.view.isInvisible
@@ -36,10 +37,10 @@ open class MainActivity : AppCompatActivity() {
         val diceGame : SwitchCompat = findViewById(R.id._swDiceGame)
         val RPG : SwitchCompat = findViewById(R.id._swRPG)
         val boardGame : SwitchCompat = findViewById(R.id._swBoardGame)
-        resetArray()
+        //        val imageView : ImageView = findViewById(R.id._imgView)
 
-        //NEED TO FIX THIS ISSUE, SEE BELOW
-//        setImages(cardGame.isChecked, diceGame.isChecked,RPG.isChecked, boardGame.isChecked)
+        resetArray()
+        setImages()
 
 
         btnShowCollection.setOnClickListener{
@@ -63,7 +64,7 @@ open class MainActivity : AppCompatActivity() {
 
                 getCategory(cardGame.isChecked, diceGame.isChecked,RPG.isChecked, boardGame.isChecked)
                 listOfGames.add("TITLE: ${game.Title}\nDESCRIPTION: ${game.Desc}\nCATEGORY: ${game.Category}")
-
+                Toast.makeText(applicationContext, getString(R.string.str_game_added_to_list), Toast.LENGTH_LONG).show()
                 listOfGames.sortBy { game.Title }
 
                 for(i in listOfGames){
@@ -85,23 +86,61 @@ open class MainActivity : AppCompatActivity() {
 
 
     //NOT SHOWING IMAGE WHEN SWITCH IS TRUE.
-    private fun setImages(cardSwitch : Boolean, diceSwitch : Boolean, rpgSwitch : Boolean, boardSwitch : Boolean){
-        val imgOfGame : ImageView = findViewById(R.id._imgView)
-        when(cardSwitch){
-            true -> {imgOfGame.setImageResource(R.drawable.card_game)
-                imgOfGame.visibility = View.VISIBLE}
+    private fun setImages(){
+        val cardGame : SwitchCompat = findViewById(R.id._swCardGame)
+        val diceGame : SwitchCompat = findViewById(R.id._swDiceGame)
+        val RPG : SwitchCompat = findViewById(R.id._swRPG)
+        val boardGame : SwitchCompat = findViewById(R.id._swBoardGame)
+        val imageView : ImageView = findViewById(R.id._imgView)
+        cardGame.setOnCheckedChangeListener { switchView, isChecked ->
+            if (switchView?.isChecked == true) {
+                Log.d("switchCard", "cardGame is checked")
+                imageView.visibility = VISIBLE
+                imageView.setImageResource(R.drawable.card_game)
+
+            } else {
+                Log.d("switchCard", "switch is NOT checked")
+                imageView.visibility = View.INVISIBLE
+
+            }
         }
-        when(diceSwitch){
-            true -> {imgOfGame.setImageResource(R.drawable.dice_game)
-                imgOfGame.visibility = View.VISIBLE}
+
+        diceGame.setOnCheckedChangeListener { switchView, isChecked ->
+            if (switchView?.isChecked == true) {
+                Log.d("switchDice", "cardGame is checked")
+                imageView.visibility = VISIBLE
+                imageView.setImageResource(R.drawable.dice_game)
+
+            } else {
+                Log.d("switchDice", "switch is NOT checked")
+                imageView.visibility = View.INVISIBLE
+
+            }
         }
-        when(rpgSwitch){
-            true ->{imgOfGame.setImageResource(R.drawable.rpg)
-                imgOfGame.visibility = View.VISIBLE}
+        RPG.setOnCheckedChangeListener { switchView, isChecked ->
+            if (switchView?.isChecked == true) {
+                Log.d("switchDice", "cardGame is checked")
+                imageView.visibility = VISIBLE
+                imageView.setImageResource(R.drawable.rpg)
+
+            } else {
+                Log.d("switchDice", "switch is NOT checked")
+                imageView.visibility = View.INVISIBLE
+                imageView.setImageResource(R.drawable.dice_game)
+
+            }
         }
-        when(boardSwitch){
-            true -> {imgOfGame.setImageResource(R.drawable.board_game)
-                imgOfGame.visibility = View.VISIBLE}
+        boardGame.setOnCheckedChangeListener { switchView, isChecked ->
+            if (switchView?.isChecked == true) {
+                Log.d("switchDice", "cardGame is checked")
+                imageView.visibility = VISIBLE
+                imageView.setImageResource(R.drawable.board_game)
+
+            } else {
+                Log.d("switchDice", "switch is NOT checked")
+                imageView.visibility = View.INVISIBLE
+
+            }
         }
 
     }
@@ -114,7 +153,6 @@ open class MainActivity : AppCompatActivity() {
         game.Category = ""
         when(cardSwitch){
             true -> game.Category += "$strCardGame "
-
         }
         when(diceSwitch){
             true -> game.Category += "$strDiceGame "
@@ -135,3 +173,4 @@ open class MainActivity : AppCompatActivity() {
 
 
 }
+
