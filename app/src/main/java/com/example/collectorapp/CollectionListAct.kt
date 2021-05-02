@@ -21,11 +21,11 @@ class CollectionListAct : AppCompatActivity() {
         val strGameInfo : String? = intent.getStringExtra("gameInfo")
         val sharedPreference : SharedPreferences = getSharedPreferences("COLLECTOR_APP", Context.MODE_PRIVATE)
         val gameInfo = sharedPreference.getString("gameInfo", null)
-//        listView.adapter = adapter
+
         val gameList : ArrayList<String> = ArrayList()
         val myMap : Map<String, String> = sharedPreference.all as Map<String, String>
         for((key, value) in myMap){
-            gameList.add("$key $value")
+            gameList.add(value)
             Log.d("MAP_TEST", "$key $value")
         }
 
