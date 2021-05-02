@@ -12,6 +12,7 @@ import android.widget.ListView
 import android.widget.TextView
 
 class CollectionListAct : AppCompatActivity() {
+    val gameList : ArrayList<String> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,11 +23,11 @@ class CollectionListAct : AppCompatActivity() {
         val sharedPreference : SharedPreferences = getSharedPreferences("COLLECTOR_APP", Context.MODE_PRIVATE)
         val gameInfo = sharedPreference.getString("gameInfo", null)
 
-        val gameList : ArrayList<String> = ArrayList()
         val myMap : Map<String, String> = sharedPreference.all as Map<String, String>
         for((key, value) in myMap){
             gameList.add(value)
-            Log.d("MAP_TEST", "$key $value")
+            gameList.sortBy{(value)}
+            Log.d("MAP_TEST", value)
         }
 
         val listView : ListView = findViewById(R.id.listView)

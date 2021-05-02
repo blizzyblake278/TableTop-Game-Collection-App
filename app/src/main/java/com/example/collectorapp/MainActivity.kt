@@ -1,18 +1,18 @@
 package com.example.collectorapp
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.view.View.VISIBLE
 import android.widget.*
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.SwitchCompat
-import androidx.core.view.isInvisible
-import androidx.core.view.isVisible
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -21,7 +21,7 @@ open class MainActivity : AppCompatActivity() {
 //    private lateinit var listView : ListView
 
     var listOfGames : ArrayList<String> = ArrayList()
-    private var game : CollectionInfo = CollectionInfo("","","")
+    private var game : CollectionInfo = CollectionInfo("","","", "")
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,37 +33,44 @@ open class MainActivity : AppCompatActivity() {
         val btnAddToList : Button = findViewById(R.id._btnAddToList)
         val gameTitle : EditText = findViewById(R.id._etTitle)
         val gameDesc : EditText = findViewById(R.id._etDescription)
+        val gameplayerCount : EditText = findViewById(R.id._etPlayercount)
         val cardGame : SwitchCompat = findViewById(R.id._swCardGame)
         val diceGame : SwitchCompat = findViewById(R.id._swDiceGame)
         val RPG : SwitchCompat = findViewById(R.id._swRPG)
         val boardGame : SwitchCompat = findViewById(R.id._swBoardGame)
-        //        val imageView : ImageView = findViewById(R.id._imgView)
 
         resetArray()
         setImages()
+        val editor= sharedPreference.edit()
 
 
+
+        //SHOWS COLLECTION LIST
         btnShowCollection.setOnClickListener{
             val collectionIntent = Intent(this, CollectionListAct::class.java)
             Log.d("arrayCheck", listOfGames.toString())
             collectionIntent.putExtra("gameInfo", game.Title)
             startActivity(collectionIntent)
+
         }
-        val editor= sharedPreference.edit()
 
         //ADDS GAME TO LIST
         btnAddToList.setOnClickListener {
             game.Title = gameTitle.text.toString().toUpperCase(Locale.ROOT)
             game.Desc = gameDesc.text.toString()
+            game.PlayerCount = gameplayerCount.text.toString()
             if(gameTitle.text.isEmpty()){
-//                Toast.makeText(applicationContext, getString(R.string.toast_No_Title), Toast.LENGTH_SHORT).show()
-                gameTitle.error = "This cannot be blank"
+                gameTitle.error = getString(R.string.str_error)
                 gameTitle.isFocusable = true
             }
+            else if(gameplayerCount.text.isEmpty()){
+                gameplayerCount.error = getString(R.string.str_error)
+                gameplayerCount.isFocusable = true
+            }
             else{
-
                 getCategory(cardGame.isChecked, diceGame.isChecked,RPG.isChecked, boardGame.isChecked)
-                listOfGames.add("TITLE: ${game.Title}\nDESCRIPTION: ${game.Desc}\nCATEGORY: ${game.Category}")
+                listOfGames.add(game.toString())
+
                 Toast.makeText(applicationContext, getString(R.string.str_game_added_to_list), Toast.LENGTH_LONG).show()
                 listOfGames.sortBy { game.Title }
 
@@ -76,16 +83,40 @@ open class MainActivity : AppCompatActivity() {
             //can clear SP here
 //            editor.clear()
             editor.apply()
+
             for(i in listOfGames){
                 Log.d("itemArrayList", i)
             }
+
+
+
         }
 
+
+    }
+    //SHOWS OPTIONS MENU
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.nav_menu, menu)
+        return super.onCreateOptionsMenu(menu)
     }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val name = getString(R.string.menu_name)
+        val version = getString(R.string.menu_app_version)
+        val info = getString(R.string.menu_app_info)
+        val shoutOuts = getString(R.string.menu_shoutouts) + "\n\n"+getString(R.string.menu_shout1) + "\n\n"+getString(R.string.menu_shout2)
+        when(item.itemId){
+            R.id._menuAbout ->{ val builder = AlertDialog.Builder(this)
+            builder.setTitle(R.string.menu_about)
+                builder.setMessage("$name\n$version\n$info\n\n$shoutOuts")
+                val alertDialog : AlertDialog = builder.create()
+                alertDialog.show()
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
 
-
-    //NOT SHOWING IMAGE WHEN SWITCH IS TRUE.
     private fun setImages(){
         val cardGame : SwitchCompat = findViewById(R.id._swCardGame)
         val diceGame : SwitchCompat = findViewById(R.id._swDiceGame)
@@ -170,6 +201,7 @@ open class MainActivity : AppCompatActivity() {
             listOfGames.clear()
         }
     }
+
 
 
 }

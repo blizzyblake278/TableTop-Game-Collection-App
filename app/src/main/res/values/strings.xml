@@ -14,5 +14,16 @@
     <string name="toast_No_Title">Must Enter a Title</string>
     <string name="image_view_content_desc">Game Type</string>
     <string name="str_game_added_to_list">Game Added to List</string>
+    <string name="str_error">This cannot be blank</string>
+    <string name="str_player_count"># of Players</string>
+    <string name="image_view_banner">My Games Banner</string>
+    <string name="menu_about">About</string>
+    <string name="menu_name">Created by: Blizzy Blake</string>
+    <string name="menu_app_version">App Version: V0.95</string>
+    <string name="menu_app_info">App Info: Add your game collection to a list. View games in a list</string>
+    <string name="menu_shoutouts">Thank you to the following people:</string>
+    <string name="menu_shout1">Mr.Bond: For pushing me and being a great mentor as well as a teacher and friend. Also a cool last name</string>
+    <string name="menu_shout2">Amanda: For supporting me through all the frustrations. Also for the sweet images</string>
+
 
 </resources>

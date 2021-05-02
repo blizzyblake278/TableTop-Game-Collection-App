@@ -50,7 +50,7 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/_etTitle"
@@ -61,24 +61,37 @@
                 android:textSize="24sp"
                 android:textStyle="bold" />
 
-        </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:counterEnabled="true"
-            app:counterMaxLength="150"
-            app:counterOverflowTextColor="@color/red">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/_etPlayercount"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/str_player_count"
+                    android:inputType="number" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/_etDescription"
-
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/str_description"
-                android:textColor="@color/purple_700"
-                android:textStyle="italic" />
+                app:counterEnabled="true"
+                app:counterMaxLength="150"
+                app:counterOverflowTextColor="@color/red">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/_etDescription"
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/str_description"
+                    android:textColor="@color/purple_700"
+                    android:textStyle="italic" />
+            </com.google.android.material.textfield.TextInputLayout>
+
         </com.google.android.material.textfield.TextInputLayout>
+
     </LinearLayout>
 
     <LinearLayout
