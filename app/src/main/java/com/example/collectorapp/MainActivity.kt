@@ -18,7 +18,6 @@ import kotlin.collections.ArrayList
 
 open class MainActivity : AppCompatActivity() {
 
-//    private lateinit var listView : ListView
 
     var listOfGames : ArrayList<String> = ArrayList()
     private var game : CollectionInfo = CollectionInfo("","","", "")
@@ -72,6 +71,7 @@ open class MainActivity : AppCompatActivity() {
                 listOfGames.add(game.toString())
 
                 Toast.makeText(applicationContext, getString(R.string.str_game_added_to_list), Toast.LENGTH_LONG).show()
+                //THIS ISN'T SORTING CORRECTLY
                 listOfGames.sortBy { game.Title }
 
                 for(i in listOfGames){
@@ -88,10 +88,23 @@ open class MainActivity : AppCompatActivity() {
                 Log.d("itemArrayList", i)
             }
 
-
-
         }
 
+
+    }
+
+    @Override
+    override fun onSaveInstanceState(savedInstanceState: Bundle) {
+        //Saves current game state
+        savedInstanceState.putParcelable("myGames", game)
+        super.onSaveInstanceState(savedInstanceState)
+    }
+
+    //2nd go at this
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        game = savedInstanceState.getParcelable("myGames")!!
+
+        super.onRestoreInstanceState(savedInstanceState)
 
     }
     //SHOWS OPTIONS MENU
@@ -123,7 +136,7 @@ open class MainActivity : AppCompatActivity() {
         val RPG : SwitchCompat = findViewById(R.id._swRPG)
         val boardGame : SwitchCompat = findViewById(R.id._swBoardGame)
         val imageView : ImageView = findViewById(R.id._imgView)
-        cardGame.setOnCheckedChangeListener { switchView, isChecked ->
+        cardGame.setOnCheckedChangeListener { switchView, _ ->
             if (switchView?.isChecked == true) {
                 Log.d("switchCard", "cardGame is checked")
                 imageView.visibility = VISIBLE
@@ -136,7 +149,7 @@ open class MainActivity : AppCompatActivity() {
             }
         }
 
-        diceGame.setOnCheckedChangeListener { switchView, isChecked ->
+        diceGame.setOnCheckedChangeListener { switchView, _ ->
             if (switchView?.isChecked == true) {
                 Log.d("switchDice", "cardGame is checked")
                 imageView.visibility = VISIBLE
@@ -148,7 +161,7 @@ open class MainActivity : AppCompatActivity() {
 
             }
         }
-        RPG.setOnCheckedChangeListener { switchView, isChecked ->
+        RPG.setOnCheckedChangeListener { switchView, _ ->
             if (switchView?.isChecked == true) {
                 Log.d("switchDice", "cardGame is checked")
                 imageView.visibility = VISIBLE
@@ -161,7 +174,7 @@ open class MainActivity : AppCompatActivity() {
 
             }
         }
-        boardGame.setOnCheckedChangeListener { switchView, isChecked ->
+        boardGame.setOnCheckedChangeListener { switchView, _ ->
             if (switchView?.isChecked == true) {
                 Log.d("switchDice", "cardGame is checked")
                 imageView.visibility = VISIBLE
@@ -205,4 +218,6 @@ open class MainActivity : AppCompatActivity() {
 
 
 }
+
+
 
