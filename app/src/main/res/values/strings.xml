@@ -24,6 +24,7 @@
     <string name="menu_shoutouts">Thank you to the following people:</string>
     <string name="menu_shout1">Mr.Bond: For pushing me and being a great mentor as well as a teacher and friend. Also a cool last name</string>
     <string name="menu_shout2">Amanda: For supporting me through all the frustrations. Also for the sweet images</string>
+    <string name="str_button_delete">DELETE</string>
 
 
 </resources>

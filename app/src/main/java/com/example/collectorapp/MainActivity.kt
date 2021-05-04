@@ -74,14 +74,17 @@ open class MainActivity : AppCompatActivity() {
                 //THIS ISN'T SORTING CORRECTLY
                 listOfGames.sortBy { game.Title }
 
+
                 for(i in listOfGames){
                 Log.d("listSort", i)}
-
                 editor.putString(game.Title, game.toString())
 
             }
-            //can clear SP here
-//            editor.clear()
+            if(gameTitle.text.toString() == "NCC-1701"){
+                //can clear SP here
+                editor.clear()
+            }
+
             editor.apply()
 
             for(i in listOfGames){
@@ -100,7 +103,7 @@ open class MainActivity : AppCompatActivity() {
         super.onSaveInstanceState(savedInstanceState)
     }
 
-    //2nd go at this
+
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         game = savedInstanceState.getParcelable("myGames")!!
 
@@ -129,13 +132,14 @@ open class MainActivity : AppCompatActivity() {
         }
         return super.onOptionsItemSelected(item)
     }
-
+    //PRIVATE FUNCTIONS
     private fun setImages(){
         val cardGame : SwitchCompat = findViewById(R.id._swCardGame)
         val diceGame : SwitchCompat = findViewById(R.id._swDiceGame)
         val RPG : SwitchCompat = findViewById(R.id._swRPG)
         val boardGame : SwitchCompat = findViewById(R.id._swBoardGame)
         val imageView : ImageView = findViewById(R.id._imgView)
+
         cardGame.setOnCheckedChangeListener { switchView, _ ->
             if (switchView?.isChecked == true) {
                 Log.d("switchCard", "cardGame is checked")
@@ -161,6 +165,7 @@ open class MainActivity : AppCompatActivity() {
 
             }
         }
+
         RPG.setOnCheckedChangeListener { switchView, _ ->
             if (switchView?.isChecked == true) {
                 Log.d("switchDice", "cardGame is checked")
@@ -174,6 +179,7 @@ open class MainActivity : AppCompatActivity() {
 
             }
         }
+
         boardGame.setOnCheckedChangeListener { switchView, _ ->
             if (switchView?.isChecked == true) {
                 Log.d("switchDice", "cardGame is checked")

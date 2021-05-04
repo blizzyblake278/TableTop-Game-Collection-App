@@ -6,5 +6,7 @@ BUT IF IT'S UNCHECKED THE IMAGE IS REVERTED BACK TO INVISIBLE
 2. LISTVIEW IS STILL NOT SORTING IN ALPHABETICAL ORDER
 
 3. ADD DELETE BUTTON FOR COLLECTION LIST
+    a. make padding smaller between buttons so LV can be bigger
+    b. add delete functionality
 
 
