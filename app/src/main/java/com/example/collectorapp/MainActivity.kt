@@ -3,6 +3,8 @@ package com.example.collectorapp
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.content.res.Resources
+import android.graphics.drawable.Drawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -11,6 +13,7 @@ import android.view.MenuItem
 import android.view.View
 import android.view.View.VISIBLE
 import android.widget.*
+import androidx.annotation.DrawableRes
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.SwitchCompat
 import java.util.*
@@ -133,6 +136,12 @@ open class MainActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
     //PRIVATE FUNCTIONS
+    private fun setImageCategory(@DrawableRes image : Int){
+        val imageView : ImageView = findViewById(R.id._imgView)
+        imageView.visibility = VISIBLE
+        imageView.setImageResource(image)
+
+    }
     private fun setImages(){
         val cardGame : SwitchCompat = findViewById(R.id._swCardGame)
         val diceGame : SwitchCompat = findViewById(R.id._swDiceGame)
@@ -143,8 +152,7 @@ open class MainActivity : AppCompatActivity() {
         cardGame.setOnCheckedChangeListener { switchView, _ ->
             if (switchView?.isChecked == true) {
                 Log.d("switchCard", "cardGame is checked")
-                imageView.visibility = VISIBLE
-                imageView.setImageResource(R.drawable.card_game)
+              setImageCategory(R.drawable.card_game)
 
             } else {
                 Log.d("switchCard", "switch is NOT checked")
@@ -156,8 +164,7 @@ open class MainActivity : AppCompatActivity() {
         diceGame.setOnCheckedChangeListener { switchView, _ ->
             if (switchView?.isChecked == true) {
                 Log.d("switchDice", "cardGame is checked")
-                imageView.visibility = VISIBLE
-                imageView.setImageResource(R.drawable.dice_game)
+                setImageCategory(R.drawable.dice_game)
 
             } else {
                 Log.d("switchDice", "switch is NOT checked")
@@ -168,26 +175,24 @@ open class MainActivity : AppCompatActivity() {
 
         RPG.setOnCheckedChangeListener { switchView, _ ->
             if (switchView?.isChecked == true) {
-                Log.d("switchDice", "cardGame is checked")
-                imageView.visibility = VISIBLE
-                imageView.setImageResource(R.drawable.rpg)
+                Log.d("switchRPG", "cardGame is checked")
+                setImageCategory(R.drawable.rpg)
 
             } else {
-                Log.d("switchDice", "switch is NOT checked")
+                Log.d("switchRPG", "switch is NOT checked")
                 imageView.visibility = View.INVISIBLE
-                imageView.setImageResource(R.drawable.dice_game)
 
             }
         }
 
         boardGame.setOnCheckedChangeListener { switchView, _ ->
             if (switchView?.isChecked == true) {
-                Log.d("switchDice", "cardGame is checked")
-                imageView.visibility = VISIBLE
-                imageView.setImageResource(R.drawable.board_game)
+                Log.d("switchBG", "cardGame is checked")
+                setImageCategory(R.drawable.board_game)
+
 
             } else {
-                Log.d("switchDice", "switch is NOT checked")
+                Log.d("switchBG", "switch is NOT checked")
                 imageView.visibility = View.INVISIBLE
 
             }
@@ -224,6 +229,8 @@ open class MainActivity : AppCompatActivity() {
 
 
 }
+
+
 
 
 
