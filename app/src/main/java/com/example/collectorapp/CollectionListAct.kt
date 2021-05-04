@@ -23,7 +23,6 @@ class CollectionListAct : AppCompatActivity() {
         val bundle: Bundle? = intent.extras
         val strGameInfo: String? = intent.getStringExtra("gameInfo")
         val sharedPreference: SharedPreferences = getSharedPreferences("COLLECTOR_APP", Context.MODE_PRIVATE)
-//        val gameInfo = sharedPreference.getString("gameInfo", null)
         val editor= sharedPreference.edit()
 
 
@@ -34,11 +33,11 @@ class CollectionListAct : AppCompatActivity() {
 
         }
 
+        sortValues(myMap)
 
         val listView: ListView = findViewById(R.id.listView)
         val adapter: ArrayAdapter<String> = ArrayAdapter(this, R.layout.collection_layout, gameList)
         listView.adapter = adapter
-
 
 
         returnButton.setOnClickListener {
@@ -50,32 +49,25 @@ class CollectionListAct : AppCompatActivity() {
         listView.onItemClickListener = object : AdapterView.OnItemClickListener {
 
             override fun onItemClick(
-                    parent: AdapterView<*>, view: View,
-                    position: Int, id: Long
+                parent: AdapterView<*>, view: View,
+                position: Int, id: Long
             ) {
-                Log.d("listPosition", position.toString())
 
                 val keyArray = myMap.keys.toTypedArray()
-
-                Log.d("keyposition", keyArray.contentToString())
-                Log.d("keyposition", keyArray.get(position))
-
-
-
 
                 deleteButton.visibility = VISIBLE
                 deleteButton.setOnClickListener {
 
                     val atIndex = keyArray.get(position)
+                    Log.d("keyposition", keyArray.get(position))
+
 
                     gameList.removeAt(position)
                     adapter.notifyDataSetChanged()
                     listView.adapter
 
-
-                    Log.d("keys",myMap.keys.toString())
-                    Log.d("keysToo",id.toString())
-                    Log.d("keysThree", myMap.entries.toString())
+                    Log.d("keysID",id.toString())
+                    Log.d("keysEntries", myMap.entries.toString())
 
                     editor.remove(atIndex)
                     editor.apply()
@@ -87,6 +79,18 @@ class CollectionListAct : AppCompatActivity() {
         }
         adapter.notifyDataSetChanged()
     }
+
+    ///////PRIVATE FUNCTIONS///////
+
+    private fun sortValues(myMap : Map<String, String>){
+        gameList.clear()
+        Log.d("sortedMap", myMap.toSortedMap().toString())
+        for(value in myMap.values.toSortedSet()){
+
+            gameList.add(value)
+        }
+    }
+
 
 }
 
