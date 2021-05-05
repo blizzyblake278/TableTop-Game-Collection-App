@@ -5,6 +5,7 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.content.res.Resources
 import android.graphics.drawable.Drawable
+import android.media.Image
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -16,6 +17,7 @@ import android.widget.*
 import androidx.annotation.DrawableRes
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.SwitchCompat
+import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -79,7 +81,7 @@ open class MainActivity : AppCompatActivity() {
 
 
                 for(i in listOfGames){
-                Log.d("listSort", i)}
+                    Log.d("listSort", i)}
                 editor.putString(game.Title, game.toString())
 
             }
@@ -126,7 +128,7 @@ open class MainActivity : AppCompatActivity() {
         val shoutOuts = getString(R.string.menu_shoutouts) + "\n\n"+getString(R.string.menu_shout1) + "\n\n"+getString(R.string.menu_shout2)
         when(item.itemId){
             R.id._menuAbout ->{ val builder = AlertDialog.Builder(this)
-            builder.setTitle(R.string.menu_about)
+                builder.setTitle(R.string.menu_about)
                 builder.setMessage("$name\n$version\n$info\n\n$shoutOuts")
                 val alertDialog : AlertDialog = builder.create()
                 alertDialog.show()
@@ -135,13 +137,25 @@ open class MainActivity : AppCompatActivity() {
         }
         return super.onOptionsItemSelected(item)
     }
-    //PRIVATE FUNCTIONS
+    ////////PRIVATE FUNCTIONS///////
     private fun setImageCategory(@DrawableRes image : Int){
         val imageView : ImageView = findViewById(R.id._imgView)
         imageView.visibility = VISIBLE
         imageView.setImageResource(image)
 
     }
+
+    private fun switchCheck(switchView : CompoundButton, @DrawableRes image : Int) {
+        val imageView : ImageView = findViewById(R.id._imgView)
+
+        if (switchView.isChecked) {
+            setImageCategory(image)
+
+        } else {
+            imageView.visibility = View.INVISIBLE
+        }
+    }
+
     private fun setImages(){
         val cardGame : SwitchCompat = findViewById(R.id._swCardGame)
         val diceGame : SwitchCompat = findViewById(R.id._swDiceGame)
@@ -149,54 +163,23 @@ open class MainActivity : AppCompatActivity() {
         val boardGame : SwitchCompat = findViewById(R.id._swBoardGame)
         val imageView : ImageView = findViewById(R.id._imgView)
 
-        cardGame.setOnCheckedChangeListener { switchView, _ ->
-            if (switchView?.isChecked == true) {
-                Log.d("switchCard", "cardGame is checked")
-              setImageCategory(R.drawable.card_game)
-
-            } else {
-                Log.d("switchCard", "switch is NOT checked")
-                imageView.visibility = View.INVISIBLE
+            cardGame.setOnCheckedChangeListener { switchView, _ ->
+                switchCheck(switchView, R.drawable.card_game)
 
             }
-        }
 
-        diceGame.setOnCheckedChangeListener { switchView, _ ->
-            if (switchView?.isChecked == true) {
-                Log.d("switchDice", "cardGame is checked")
-                setImageCategory(R.drawable.dice_game)
-
-            } else {
-                Log.d("switchDice", "switch is NOT checked")
-                imageView.visibility = View.INVISIBLE
-
+            diceGame.setOnCheckedChangeListener { switchView, _ ->
+                switchCheck(switchView, R.drawable.dice_game)
             }
-        }
 
-        RPG.setOnCheckedChangeListener { switchView, _ ->
-            if (switchView?.isChecked == true) {
-                Log.d("switchRPG", "cardGame is checked")
-                setImageCategory(R.drawable.rpg)
-
-            } else {
-                Log.d("switchRPG", "switch is NOT checked")
-                imageView.visibility = View.INVISIBLE
-
+            RPG.setOnCheckedChangeListener { switchView, _ ->
+                switchCheck(switchView, R.drawable.rpg)
             }
-        }
 
-        boardGame.setOnCheckedChangeListener { switchView, _ ->
-            if (switchView?.isChecked == true) {
-                Log.d("switchBG", "cardGame is checked")
-                setImageCategory(R.drawable.board_game)
+            boardGame.setOnCheckedChangeListener { switchView, _ ->
 
-
-            } else {
-                Log.d("switchBG", "switch is NOT checked")
-                imageView.visibility = View.INVISIBLE
-
+                switchCheck(switchView, R.drawable.board_game)
             }
-        }
 
     }
 
@@ -225,6 +208,8 @@ open class MainActivity : AppCompatActivity() {
             listOfGames.clear()
         }
     }
+
+
 
 
 
